@@ -27,3 +27,22 @@ bit shift operator <<
     data ^= (1UL << n);    
 
 ```
+
+Setting variable with current path location a.k.a. work space
+
+```batch
+    SET WS=%cd%
+    SET "CurrentWorkSpace=%cd%"
+```
+This is also called the "sadow" variable cd
+
+Now the following is to show how to navigate to the outside of the work space, suppose we have the following folder structure:\
+Products\MyProuct\Module\Input\config.ini \
+Products\MyProuct\Module\Output\ \
+ToolKit\MyTool\tool.exe
+Our workspace is of course in MyProduct, how do we run tool.exe?
+```batch
+    cd ..\..\tool.exe --inputFilePath Module\Input  --output Module\Output
+```
+Let the tool be able to config from and output result to our file systems. 
+
