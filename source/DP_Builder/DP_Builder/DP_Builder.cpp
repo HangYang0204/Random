@@ -2,19 +2,48 @@
 //
 
 #include <iostream>
+#include <vector>
+#include <sstream>
+#include <string>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+class HtmlBuilder;
+class HtmlElement {
+    string                      m_name;
+    string                      m_text;
+    vector<HtmlElement>         m_childs;
+    constexpr static size_t     m_indent_size = 4;
+    HtmlElement() = default;
+    HtmlElement(const string& name, const string& text) : m_name(name), m_text(text) {}
+    friend class HtmlBuilder;
+public:
+    string str(int32_t indent = 0) {
+        ostringstream oss;
+        oss << string(m_indent_size * indent, ' ') << "<" << m_name << ">" << endl;
+        if (m_text.size()) oss << string(m_indent_size * (indent + 1), ' ') << m_text << endl;
+        for (auto& element : m_childs)
+            oss << element.str(indent + 1);
+        oss << string(m_indent_size * indent, ' ') << "</" << m_name << ">" << endl;
+        return oss.str();
+    }
+    static unique_ptr<HtmlBuilder> build(string root_name) { return make_unique<HtmlBuilder>(root_name); }
+};
+
+class HtmlBuilder {
+    HtmlElement     m_root;
+public:
+    HtmlBuilder(string root_name) { m_root.m_name = root_name; }
+    HtmlBuilder* add_child(string child_name, string child_text) {
+        m_root.m_childs.emplace_back(HtmlElement{ child_name, child_text });
+        return this;
+    }
+    string str() { return m_root.str(); }
+    operator HtmlElement() { return m_root; }
+};
+
+int main() {
+    auto builder = HtmlElement::build("ul");
+    builder->add_child("li", "hello")->add_child("li", "world");
+    cout << builder->str() << endl;
+    return EXIT_SUCCESS;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
