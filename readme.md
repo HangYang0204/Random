@@ -34,7 +34,7 @@ Setting variable with current path location a.k.a. work space
     SET WS=%cd%
     SET "CurrentWorkSpace=%cd%"
 ```
-This is also called the "sadow" variable cd
+This is also called the "shadow" variable cd
 
 Now the following is to show how to navigate to the outside of the work space, suppose we have the following folder structure:\
 Products\MyProuct\Module\Input\config.ini \
@@ -46,3 +46,4 @@ Our workspace is of course in MyProduct, how do we run tool.exe?
 ```
 Let the tool be able to config from and output result to our file systems. 
 
+--this is now being used for DP notes.
