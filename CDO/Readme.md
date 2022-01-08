@@ -45,7 +45,7 @@ Public Sub SendSimpleCDOMail()
     
 End Sub
 ```
-To use the service, you must provide valid server address. For authentication, If your application is used within a Windows Domain with Active Directory and the user is authenticated in the domain, you can use NTLM authentication(Note that the email server must have configed to allow it)
+To use the service, you must provide valid server address. For authentication, If your application is used within a Windows Domain with Active Directory and the user is authenticated in the domain, you can use NTLM authentication(Note that the email server must have configed to allow it), for addtional functionalities see [this artical](https://codekabinett.com/rdumps.php?Lang=2&targetDoc=send-email-access-vba-cdo) 
 
 ## Using VC++ 
-TODO
+Unlike VBA, we use smart pointer to access the objects.
