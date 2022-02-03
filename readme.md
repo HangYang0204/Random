@@ -79,3 +79,4 @@ options = OpAutoRedraw | OpVertexShader | OpFullscreen;
 if (options & OpAutoRedraw) {} // true
 if (options & OpAntiAlias) {} // false 
 ```
+Additional reading [read me](https://blog.podkalicki.com/bit-level-operations-bit-flags-and-bit-masks/)
