@@ -4,6 +4,11 @@ import matplotlib.pyplot as plt
 import random
 
 class RandomWalk:
+    #static members
+    _MaxWalkers = 7 # add more colors to increase this size
+    _MaxSteps   = 1000
+    _Color      = {0:'red', 1:'green', 2:'blue', 3:'yellow', 4:'black', 5:'purple', 6:'orange'}
+    #TODO: Add canvas properties such as canvas dimensions, axis precisions, titles etc. 
     
     def __init__(self, numWalkers, numSteps):
         self.numWalkers = numWalkers
@@ -24,6 +29,9 @@ class RandomWalk:
         '''
         M = self.numWalkers
         N = self.numSteps
+        if(M == 0 or N == 0 or M >= self._MaxSteps or N >= self._MaxSteps): 
+            return
+        
         aix = [ 0*i for i in range(M)]
         for i in range(M):
             x = 0
@@ -49,7 +57,7 @@ class RandomWalk:
                 aix[i].plot(x, y, 'o', color='red')#primary one
             else:
                 aix[i] = aix[i - 1].twinx()
-                aix[i].plot(x, y, 'o', color='blue')
+                aix[i].plot(x, y, 'o', color=self._Color[i])
         
         plt.show()       
         # save the plot as a file
