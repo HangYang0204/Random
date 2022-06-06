@@ -46,4 +46,37 @@ Our workspace is of course in MyProduct, how do we run tool.exe?
 ```
 Let the tool be able to config from and output result to our file systems. 
 
---this is now being used for DP notes.
+### bit flag
+boolean variables consume 1 byte of memory but all we need is just 1 bit. Observe the following example:
+```c++
+	
+unsigned char options;
+
+enum Options {
+  OpAutoRedraw    = 0x01,
+  OpAntiAlias     = 0x02,
+  OpPixelShader   = 0x04,
+  OpVertexShader  = 0x08,
+  OpFullscreen    = 0x10,
+  OpDaylight      = 0x20,
+  Opfocus         = 0x40;
+  OpOthers        = 0x80;
+};
+
+// 0x01 ==   1 == "00000001"
+// 0x02 ==   2 == "00000010"
+// 0x04 ==   4 == "00000100"
+// 0x08 ==   8 == "00001000"
+// 0x10 ==  16 == "00010000"
+// 0x20 ==  32 == "00100000"
+// 0x40 ==  64 == "01000000"
+// 0x80 == 128 == "10000000"
+
+//Manipulate relationship
+options = OpAutoRedraw | OpVertexShader | OpFullscreen;
+// options == 0x01 | 0x08 | 0x10 == "00011001" 
+
+if (options & OpAutoRedraw) {} // true
+if (options & OpAntiAlias) {} // false 
+```
+Additional reading [read me](https://blog.podkalicki.com/bit-level-operations-bit-flags-and-bit-masks/)
